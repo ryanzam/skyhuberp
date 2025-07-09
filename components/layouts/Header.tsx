@@ -10,16 +10,8 @@ const Header = () => {
 
     return (
         <header className="h-16 bg-white border-b shadow-sm">
-            <div className="flex items-center justify-between h-full px-4">
-                <div className="flex items-center space-x-4">
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        className="lg:hidden"
-                    >
-                        <Menu className="h-5 w-5" />
-                    </Button>
-
+            <div className="flex items-center justify-end h-full px-4">
+                <div className="flex items-center space-x-4 mr-2">
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                         <Input
