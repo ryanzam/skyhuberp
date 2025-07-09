@@ -1,12 +1,66 @@
+'use client'
+
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
 import { Loader2, Tally5 } from 'lucide-react'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
+import { z } from 'zod'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react'
+
+const signInSchema = z.object({
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(1, 'Password is required'),
+});
+
+type SigninForm = z.infer<typeof signInSchema>
 
 const SignInPage = () => {
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const router = useRouter();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<SigninForm>({
+        resolver: zodResolver(signInSchema),
+    });
+
+    const onSubmit = () => {
+
+    }
+
+    const handleDemoLogin = async () => {
+        setIsLoading(true)
+        setError("")
+
+        try {
+            const res = await signIn("credentials", {
+                email: 'admin@demo.com',
+                password: 'demo1234',
+                redirect: false
+            })
+
+            if (res?.error) {
+                setError("Demo login failed. Try again.")
+            } else {
+                router.push('/dashboard')
+            }
+        } catch (error) {
+            setError('Demo login failed. Try again later.')
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
             <Card className="w-full max-w-md shadow-xl">
@@ -22,20 +76,20 @@ const SignInPage = () => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                    <form /* onSubmit={handleSubmit(onSubmit)} */ className="space-y-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
                                 id="email"
                                 type="email"
                                 placeholder="Enter your email"
-                                /* {...register('email')}
+                                {...register('email')}
                                 className={errors.email ? 'border-red-500' : ''}
-                                disabled={isLoading} */
+                                disabled={isLoading}
                             />
-                            {/* {errors.email && (
+                            {errors.email && (
                                 <p className="text-sm text-red-500">{errors.email.message}</p>
-                            )} */}
+                            )}
                         </div>
 
                         <div className="space-y-2">
@@ -44,31 +98,30 @@ const SignInPage = () => {
                                 id="password"
                                 type="password"
                                 placeholder="Enter your password"
-                               /*  {...register('password')}
+                                {...register('password')}
                                 className={errors.password ? 'border-red-500' : ''}
-                                disabled={isLoading} */
+                                disabled={isLoading}
                             />
-                            {/* {errors.password && (
+                            {errors.password && (
                                 <p className="text-sm text-red-500">{errors.password.message}</p>
-                            )} */}
+                            )}
                         </div>
 
-                        {/* {error && (
+                        {error && (
                             <Alert variant="destructive">
                                 <AlertDescription>{error}</AlertDescription>
                             </Alert>
                         )}
- */}
-                        <Button type="submit" className="w-full" /* disabled={isLoading} */>
-                            {/* {isLoading ? (
+
+                        <Button type="submit" className="w-full" disabled={isLoading}>
+                            {isLoading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                     Signing in...
                                 </>
                             ) : (
                                 'Sign In'
-                            )} */}
-                            Sign in
+                            )}
                         </Button>
                     </form>
 
@@ -85,22 +138,13 @@ const SignInPage = () => {
                         <Button
                             variant="outline"
                             className="w-full"
-                            /* onClick={handleDemoLogin}
-                            disabled={isLoading} */
+                            onClick={handleDemoLogin}
+                            disabled={isLoading}
                         >
-                            {/* {isLoading ? (
+                            {isLoading ? (
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            ) : null} */}
+                            ) : null}
                             Try Demo Login
-                        </Button>
-
-                        <Button
-                            variant="secondary"
-                            className="w-full"
-                           /*  onClick={createSampleData}
-                            disabled={isLoading} */
-                        >
-                            Create Sample Data
                         </Button>
                     </div>
 
