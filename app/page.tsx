@@ -1,7 +1,7 @@
 'use client'
 
 import { Tally5 } from "lucide-react";
-import Loading from "./components/ui/Loading";
+import Loading from "../components/ui/loading";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -19,7 +19,7 @@ export default function Home() {
     } else {
       router.push('/auth/signin')
     }
-  }, [])
+  }, [session, status, router])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
