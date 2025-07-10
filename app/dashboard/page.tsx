@@ -1,6 +1,7 @@
 "use client"
 
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
+import QuickActions from '@/components/dashboard/QuickActions';
 import Recent from '@/components/dashboard/Recent';
 import StatsCard from '@/components/dashboard/StatsCard';
 import DashboardLayout from '@/components/layouts/DashboardLayout'
@@ -110,6 +111,8 @@ const DashboardPage = () => {
             <StatsCard statCards={statCards} />
 
             <Recent stats={stats} />
+
+            <QuickActions />
         </DashboardLayout>
     )
 }
