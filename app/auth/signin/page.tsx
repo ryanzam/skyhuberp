@@ -12,6 +12,7 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react'
+import { toast } from 'sonner'
 
 const signInSchema = z.object({
     email: z.string().email('Invalid email address'),
@@ -45,7 +46,7 @@ const SignInPage = () => {
         try {
             const res = await signIn("credentials", {
                 email: 'admin@demo.com',
-                password: 'demo1234',
+                password: 'admin123',
                 redirect: false
             })
 
@@ -58,6 +59,19 @@ const SignInPage = () => {
             setError('Demo login failed. Try again later.')
         } finally {
             setIsLoading(false)
+        }
+    }
+
+    const createDemoData = async () => {
+        try {
+            const response = await fetch('/api/seed', { method: "POST" })
+            if (response.ok) {
+                toast.success('Data created successfully! You can now use the demo login.');
+            } else {
+                toast.error('Failed to create demo data. Please try again.');
+            }
+        } catch (error) {
+            toast.error('Error creating demo data. Please try again.');
         }
     }
 
@@ -145,6 +159,15 @@ const SignInPage = () => {
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                             ) : null}
                             Try Demo Login
+                        </Button>
+
+                        <Button
+                            variant="secondary"
+                            className="w-full"
+                            onClick={createDemoData}
+                            disabled={isLoading}
+                        >
+                            Create Demo Data
                         </Button>
                     </div>
 

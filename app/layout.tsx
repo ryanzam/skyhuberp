@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import AuthProviders from "./providers/AuthProviders";
+import { Toaster } from 'sonner';
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={`${robotoSans.variable} ${robotoMono.variable} antialiased`}
       >
         <AuthProviders>
+          <Toaster />
           {children}
         </AuthProviders>
       </body>

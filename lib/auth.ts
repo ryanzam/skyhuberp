@@ -2,6 +2,7 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import mongoConnect from './mongoConnect';
 import User from '@/models/User';
+import Company from '@/models/Company';
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -12,8 +13,9 @@ export const authOptions: NextAuthOptions = {
                 password: { label: 'Password', type: 'password' }
             },
             async authorize(credentials) {
-                if (!credentials?.email || !credentials?.password)
-                    throw new Error("Invalid credentials")
+                if (!credentials?.email || !credentials?.password) {
+                    return null;
+                }
 
                 try {
                     await mongoConnect();
@@ -21,15 +23,17 @@ export const authOptions: NextAuthOptions = {
                     const user = await User.findOne({
                         email: credentials.email,
                         isActive: true
-                    }).populate('company');
+                    })
 
-                    if (!user)
-                        throw new Error("Invalid credentials")
+                    if (!user) {
+                        return null;
+                    }
 
                     const isPasswordValid = await user.comparePassword(credentials.password);
 
-                    if (!isPasswordValid)
-                        throw new Error("Incorrect credentials")
+                    if (!isPasswordValid) {
+                        return null;
+                    }
 
                     return {
                         id: user._id.toString(),
@@ -37,6 +41,7 @@ export const authOptions: NextAuthOptions = {
                         email: user.email,
                         role: user.role,
                         company: user.company._id.toString(),
+                        //companyName: user.company.name
                     };
                 } catch (error) {
                     console.error('Auth error:', error);
@@ -47,19 +52,20 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async jwt({ token, user }) {
-            /* if (user) {
-                token.role = user.role;
-                token.companyName = user.companyName;
-            } */
+            if (user) {
+                /* token.role = user.role;
+                token.company = user.company;
+                token.companyName = user.companyName; */
+            }
             return token;
         },
         async session({ session, token }) {
-            /* if (token && session.user) {
-                session.user.id = token.sub!;
+            if (token && session.user) {
+                /* session.user.id = token.sub!;
                 session.user.role = token.role as string;
                 session.user.company = token.company as string;
-                session.user.companyName = token.companyName as string;
-            } */
+                session.user.companyName = token.companyName as string; */
+            }
             return session;
         }
     },

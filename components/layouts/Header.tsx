@@ -6,11 +6,11 @@ import { Bell, Menu, Search } from 'lucide-react'
 import { Input } from '../ui/input'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { useStore } from '@/lib/store'
+import { useSession } from 'next-auth/react'
 
 const Header = () => {
 
-    // use actual session later
-    const session = { user: { name: "John Doe", companyName: "Google", image: "https://github.com/shadcn.png" } }
+    const { data: session } = useSession()
     const { setSidebarOpen } = useStore();
 
     return (
@@ -46,7 +46,7 @@ const Header = () => {
                                 {session?.user?.name || 'User'}
                             </p>
                             <p className="text-xs text-gray-500">
-                                {session?.user?.companyName || 'Company'}
+                                {/*  {session?.user?.companyName || 'Company'} */}
                             </p>
                         </div>
                         <Avatar>

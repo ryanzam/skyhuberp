@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from 'mongoose';
+import mongoose, { Document, Model, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { UserRole } from '@/types';
 
@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
         default: 'user'
     },
     company: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Company',
         required: true
     },
