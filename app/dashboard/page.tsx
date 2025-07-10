@@ -1,5 +1,6 @@
 "use client"
 
+import DashboardHeader from '@/components/dashboard/DashboardHeader';
 import DashboardLayout from '@/components/layouts/DashboardLayout'
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -67,7 +68,7 @@ const DashboardPage = () => {
 
     return (
         <DashboardLayout>
-            <h1>Dashboard</h1>
+            <DashboardHeader session={session} />
         </DashboardLayout>
     )
 }
