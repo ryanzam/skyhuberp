@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
                     const user = await User.findOne({
                         email: credentials.email,
                         isActive: true
-                    })
+                    }).populate('company');
 
                     if (!user) {
                         return null;
@@ -41,8 +41,7 @@ export const authOptions: NextAuthOptions = {
                         email: user.email,
                         role: user.role,
                         company: user.company._id.toString(),
-                        //companyName: user.company.name
-                    };
+                    } as any;
                 } catch (error) {
                     console.error('Auth error:', error);
                     return null;
@@ -53,18 +52,18 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                /* token.role = user.role;
+                token.role = user.role;
                 token.company = user.company;
-                token.companyName = user.companyName; */
+                token.companyName = user.companyName;
             }
             return token;
         },
         async session({ session, token }) {
             if (token && session.user) {
-                /* session.user.id = token.sub!;
+                session.user.id = token.sub!;
                 session.user.role = token.role as string;
                 session.user.company = token.company as string;
-                session.user.companyName = token.companyName as string; */
+                session.user.companyName = token.companyName as string;
             }
             return session;
         }
