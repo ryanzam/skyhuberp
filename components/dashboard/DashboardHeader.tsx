@@ -4,7 +4,7 @@ import { Button } from '../ui/button'
 import { BarChart3 } from 'lucide-react'
 
 const DashboardHeader = ({ session }: any) => {
-
+    
     return (
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

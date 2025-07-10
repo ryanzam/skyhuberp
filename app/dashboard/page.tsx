@@ -1,11 +1,13 @@
 "use client"
 
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
+import StatsCard from '@/components/dashboard/StatsCard';
 import DashboardLayout from '@/components/layouts/DashboardLayout'
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { AlertTriangle } from 'lucide-react';
+import { DashboardStats, StatCard } from '@/types';
+import { AlertTriangle, DollarSign, Package, ShoppingCart, TrendingUp } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import React, { useState } from 'react'
 
@@ -14,6 +16,40 @@ const DashboardPage = () => {
     const { data: session } = useSession();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [stats, setStats] = useState<DashboardStats | null>(null);
+
+    const statCards: StatCard[] = [
+        {
+            title: 'Total Revenue',
+            value: stats?.totalRevenue || 0,
+            icon: DollarSign,
+            color: 'text-green-600',
+            bgColor: 'bg-green-50',
+            prefix: '$'
+        },
+        {
+            title: 'Total Expenses',
+            value: stats?.totalExpenses || 0,
+            icon: TrendingUp,
+            color: 'text-red-600',
+            bgColor: 'bg-red-50',
+            prefix: '$'
+        },
+        {
+            title: 'Stock Items',
+            value: stats?.totalStock || 0,
+            icon: Package,
+            color: 'text-blue-600',
+            bgColor: 'bg-blue-50',
+        },
+        {
+            title: 'Total Orders',
+            value: stats?.totalOrders || 0,
+            icon: ShoppingCart,
+            color: 'text-purple-600',
+            bgColor: 'bg-purple-50'
+        }
+    ];
 
     if (loading) {
         return (
@@ -69,6 +105,8 @@ const DashboardPage = () => {
     return (
         <DashboardLayout>
             <DashboardHeader session={session} />
+
+            <StatsCard statCards={statCards} />
         </DashboardLayout>
     )
 }
