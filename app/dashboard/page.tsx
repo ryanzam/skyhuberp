@@ -1,6 +1,7 @@
 "use client"
 
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
+import Recent from '@/components/dashboard/Recent';
 import StatsCard from '@/components/dashboard/StatsCard';
 import DashboardLayout from '@/components/layouts/DashboardLayout'
 import { Button } from '@/components/ui/button';
@@ -107,6 +108,8 @@ const DashboardPage = () => {
             <DashboardHeader session={session} />
 
             <StatsCard statCards={statCards} />
+
+            <Recent stats={stats} />
         </DashboardLayout>
     )
 }
