@@ -25,7 +25,7 @@ const QuickActions = () => {
                             <DollarSign className="h-6 w-6" />
                             <span>Add Transaction</span>
                         </Button>
-                        <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-green-50 hover:border-green-200">
+                        <Button onClick={() => router.push("/inventory/stock")} variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-green-50 hover:border-green-200">
                             <Package className="h-6 w-6" />
                             <span>Add Stock</span>
                         </Button>

@@ -23,3 +23,17 @@ export interface Transaction {
     totalAmount: number;
     createdAt: string;
 }
+
+export interface Stock {
+    _id: string;
+    name: string;
+    code: string;
+    category: string;
+    unit: string;
+    quantity: number;
+    unitPrice: number;
+    minStock: number;
+    maxStock: number;
+    valuationMethod: string;
+    createdAt: string;
+}
