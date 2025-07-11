@@ -37,3 +37,25 @@ export interface Stock {
     valuationMethod: string;
     createdAt: string;
 }
+
+export interface Order {
+    _id: string;
+    orderNumber: string;
+    type: string;
+    date: string;
+    customer: string;
+    items: Array<{
+        stock: {
+            _id: string;
+            name: string;
+            code: string;
+            unit: string;
+        };
+        quantity: number;
+        unitPrice: number;
+        totalPrice: number;
+    }>;
+    totalAmount: number;
+    status: string;
+    createdAt: string;
+}
