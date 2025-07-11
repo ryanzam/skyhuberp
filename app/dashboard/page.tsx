@@ -11,7 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { DashboardStats, StatCard } from '@/types';
 import { AlertTriangle, DollarSign, Package, ShoppingCart, TrendingUp } from 'lucide-react';
 import { useSession } from 'next-auth/react';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const DashboardPage = () => {
 
@@ -19,6 +19,30 @@ const DashboardPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [stats, setStats] = useState<DashboardStats | null>(null);
+
+    useEffect(() => {
+        fetchStats();
+    }, [])
+
+    const fetchStats = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch('/api/dashboard/stats');
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch dashboard stats');
+            }
+
+            const data = await response.json();
+            setStats(data);
+            setError(null);
+        } catch (error) {
+            console.error('Error fetching dashboard stats:', error);
+            setError('Failed to load dashboard data');
+        } finally {
+            setLoading(false);
+        }
+    }
 
     const statCards: StatCard[] = [
         {

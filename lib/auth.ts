@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
                     const user = await User.findOne({
                         email: credentials.email,
                         isActive: true
-                    }).populate('company');
+                    });
 
                     if (!user) {
                         return null;
