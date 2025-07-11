@@ -1,9 +1,15 @@
+"use client"
+
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
 import { BarChart3, DollarSign, Package, ShoppingCart } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const QuickActions = () => {
+
+    const router = useRouter();
+
     return (
         <div className='my-5'>
             <Card>
@@ -15,7 +21,7 @@ const QuickActions = () => {
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-blue-50 hover:border-blue-200">
+                        <Button onClick={() => router.push("/accounting/transactions")} variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-blue-50 hover:border-blue-200">
                             <DollarSign className="h-6 w-6" />
                             <span>Add Transaction</span>
                         </Button>
