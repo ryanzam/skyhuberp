@@ -77,3 +77,15 @@ export interface JournalEntry {
     totalAmount: number;
     createdAt: string;
 }
+
+export interface Category {
+    _id: string;
+    name: string;
+    description?: string;
+    parentCategory?: {
+        _id: string;
+        name: string;
+    };
+    itemCount: number;
+    createdAt: string;
+}
