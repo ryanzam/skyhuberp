@@ -31,7 +31,7 @@ const ledgerSchema = z.object({
 });
 
 type LedgerForm = z.infer<typeof ledgerSchema>;
-//const [ledgers, setLedgers] = useState<LedgerWithOpening[]>([]);
+
 const LedgersPage = () => {
 
     const [ledgers, setLedgers] = useState<LedgerWithOpening[]>([]);

@@ -59,3 +59,21 @@ export interface Order {
     status: string;
     createdAt: string;
 }
+
+export interface JournalEntry {
+    _id: string;
+    date: string;
+    reference: string;
+    description: string;
+    entries: Array<{
+        ledger: {
+            _id: string;
+            name: string;
+            type: string;
+        };
+        debit: number;
+        credit: number;
+    }>;
+    totalAmount: number;
+    createdAt: string;
+}
