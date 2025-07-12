@@ -33,7 +33,7 @@ const QuickActions = () => {
                             <ShoppingCart className="h-6 w-6" />
                             <span>Create Order</span>
                         </Button>
-                        <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-orange-50 hover:border-orange-200">
+                        <Button onClick={() => router.push("/reports/balance-sheet")} variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-orange-50 hover:border-orange-200">
                             <BarChart3 className="h-6 w-6" />
                             <span>View Reports</span>
                         </Button>
