@@ -48,8 +48,6 @@ const menuItems = [
         children: [
             { title: 'Balance Sheet', href: '/reports/balance-sheet' },
             { title: 'P&L Statement', href: '/reports/profit-loss' },
-            { title: 'Trial Balance', href: '/reports/trial-balance' },
-            { title: 'Stock Reports', href: '/reports/stock' }
         ]
     },
     {

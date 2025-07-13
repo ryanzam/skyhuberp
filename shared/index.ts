@@ -149,7 +149,6 @@ export interface Invoice {
     createdAt: string;
 }
 
-
 export interface User {
     _id: string;
     name: string;
@@ -157,4 +156,27 @@ export interface User {
     role: string;
     isActive: boolean;
     createdAt: string;
+}
+
+export interface ProfitLossItem {
+    name: string;
+    group: string;
+    amount: number;
+}
+
+export interface ProfitLoss {
+    period: {
+        startDate: string;
+        endDate: string;
+    };
+    income: {
+        items: ProfitLossItem[];
+        total: number;
+    };
+    expenses: {
+        items: ProfitLossItem[];
+        total: number;
+    };
+    netProfit: number;
+    profitMargin: number;
 }
