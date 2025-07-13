@@ -30,7 +30,7 @@ const menuItems = [
         children: [
             { title: 'Stock Items', href: '/inventory/stock' },
             { title: 'Categories', href: '/inventory/categories' },
-            { title: 'Stock Movements', href: '/inventory/movements' }
+            //{ title: 'Stock Movements', href: '/inventory/movements' }
         ]
     },
     {

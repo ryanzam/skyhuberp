@@ -89,3 +89,46 @@ export interface Category {
     itemCount: number;
     createdAt: string;
 }
+
+export interface PurchaseOrder {
+    _id: string;
+    orderNumber: string;
+    type: string;
+    date: string;
+    customer: string;
+    items: Array<{
+        stock: {
+            _id: string;
+            name: string;
+            code: string;
+            unit: string;
+        };
+        quantity: number;
+        unitPrice: number;
+        totalPrice: number;
+    }>;
+    totalAmount: number;
+    status: string;
+    createdAt: string;
+}
+
+export interface Invoice {
+    _id: string;
+    invoiceNumber: string;
+    date: string;
+    dueDate: string;
+    customer: string;
+    items: Array<{
+        description: string;
+        quantity: number;
+        unitPrice: number;
+        taxRate: number;
+        total: number;
+    }>;
+    subtotal: number;
+    taxAmount: number;
+    totalAmount: number;
+    status: string;
+    notes?: string;
+    createdAt: string;
+}
