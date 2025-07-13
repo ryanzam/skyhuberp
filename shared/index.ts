@@ -148,3 +148,13 @@ export interface Invoice {
     notes?: string;
     createdAt: string;
 }
+
+
+export interface User {
+    _id: string;
+    name: string;
+    email: string;
+    role: string;
+    isActive: boolean;
+    createdAt: string;
+}
