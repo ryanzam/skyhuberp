@@ -112,6 +112,22 @@ export interface PurchaseOrder {
     createdAt: string;
 }
 
+export interface Company {
+    _id: string;
+    name: string;
+    address: string;
+    phone: string;
+    email: string;
+    taxId: string;
+    currency: string;
+    financialYear: {
+        startDate: string;
+        endDate: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+}
+
 export interface Invoice {
     _id: string;
     invoiceNumber: string;
